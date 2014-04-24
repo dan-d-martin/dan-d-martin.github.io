@@ -5,7 +5,7 @@ date:   2014-04-22 21:40:00
 categories: javascript
 ---
 
-Mithril (http://lhorie.github.io/mithril/) is a new, lightweight and fast MVC framework for front-end javascript.
+[Mithril](http://lhorie.github.io/mithril/) is a new, lightweight and fast MVC framework for front-end javascript.
 
 It looks like it could be a good alternative to something like Angular and it certainly seems easier to work with.
 
@@ -230,7 +230,7 @@ For our view, we have three parts of the view to draw: the control buttons, the 
         ]);
 {% endhighlight %}
 
-The view itself takes the form of a function, to which we pass the controller object. We're going to be working directly on the document object of the DOM, so we start by adding the <html> and <body> elements.
+The view itself takes the form of a function, to which we pass the controller object. We're going to be working directly on the document object of the DOM, so we start by adding the html and body elements.
 Next, we add the three buttons for the controls, with their associated event handlers. To set up the event handler, we simply do something like this:
 
 {% highlight javascript %}
@@ -247,7 +247,7 @@ Next, we display the two players' hands. First we show them the total:
     ]),
 {% endhighlight %}
 
-We add a <p> element containing a <strong> tag for the label and then the total variable on the controller.
+We add a p element containing a strong tag for the label and then the total variable on the controller.
 
 Now we'll show them their hand. For this, we take advantage of javascript's Array.map function to allow us to iterate over the array, adding rows to a table for each element:
 {% highlight javascript %}
@@ -262,7 +262,7 @@ Now we'll show them their hand. For this, we take advantage of javascript's Arra
     ]),
 {% endhighlight %}
 
-So, we add a <table> element, within which we loop over the array of cards which represents the player's hand. Each card is a game.Card instance, so we can use the prop() methods (see above) to retrieve the data e.g. card.name()
+So, we add a table element, within which we loop over the array of cards which represents the player's hand. Each card is a game.Card instance, so we can use the prop() methods (see above) to retrieve the data e.g. card.name()
 
 We repeat the above steps to show the dealer's hand and the view is complete.
 
@@ -282,4 +282,4 @@ We call game.init() and the game begins!
 This was just a simple experiment in getting something running. It's neither the best-written code ever, nor even a complete game (for one thing I've considered the Ace card to always be worth 1, whereas in reality it can be 1 or 11). Nevertheless, it demonstrates how quickly we can get something running with this framework and how lightweight and easy to understand it is.
 So far I'm a fan of Mithril. In the future I hope to explore it a bit more to really see what it can do.
 
-You can view the full code here: https://github.com/dan-d-martin/mithril-pontoon
+You can view the full code here: [https://github.com/dan-d-martin/mithril-pontoon](https://github.com/dan-d-martin/mithril-pontoon)
