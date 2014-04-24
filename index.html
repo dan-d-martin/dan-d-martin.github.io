@@ -4,7 +4,10 @@ title: dan-martin.net
 ---
 
 <div id="home">
-  <h1>Latest Posts</h1>
+  <h1>Welcome to dan-martin.net</h1>
+  <p>This is the website of Dan Martin, a Leeds-based web application builder primarily focussed on PHP (Symfony2) and Javascript.</p>
+
+  <h2>My latest posts:</h2>
   <ul class="posts">
     {% for post in site.posts %}
       <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
