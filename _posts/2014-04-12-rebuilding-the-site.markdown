@@ -2,7 +2,7 @@
 layout: post
 title:  "Rebuilding the site"
 date:   2014-04-12 17:03:00
-categories: site, jekyll
+categories: 
 ---
 
 Having set up my website nearly four years ago and left it alone ever since, I decided it was probably time to do something about it.

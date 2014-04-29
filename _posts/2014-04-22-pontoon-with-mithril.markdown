@@ -2,7 +2,7 @@
 layout: post
 title:  "Pontoon with Mithril"
 date:   2014-04-22 21:40:00
-categories: javascript
+categories: 
 ---
 
 [Mithril](http://lhorie.github.io/mithril/) is a new, lightweight and fast MVC framework for front-end javascript.

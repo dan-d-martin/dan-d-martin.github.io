@@ -2,7 +2,7 @@
 layout: post
 title:  "Using a time service to aid testing"
 date:   2014-04-29 19:40:00
-categories: php, testing, dependency injection, symfony
+categories:
 ---
 
 A problem which has cropped up numerous times in projects I've worked on is that of testing code which uses the current time, or some variant thereof, such as an audit logger for example.
