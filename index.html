@@ -17,7 +17,7 @@ title: dan-martin.net
             <h3 class="panel-title">{{ post.date | date_to_string }} {{post.title}}</h3>
           </div>
           <div class="panel-body">
-            {{ post.exceprt }}
+            {{ post.content | strip_html | truncatewords: 50 }}...
             <div class="pull-right">
                <a href="{{ post.url }}" class="btn btn-primary">read more</a>
             </div>
