@@ -4,15 +4,25 @@ title: dan-martin.net
 ---
 
 <div id="home">
-  <h1>Welcome to dan-martin.net</h1>
-  <p>This is the website of Dan Martin, a Leeds-based web application builder primarily focussed on PHP (Symfony2) and Javascript.</p>
+  <div class="jumbotron">
+    <h1>Welcome to dan-martin.net</h1>
+    <p>This is the website of Dan Martin, a Leeds-based web application builder primarily focussed on PHP (Symfony2) and Javascript.</p>
+  </div>
 
   <h2>My latest posts:</h2>
-  <ul class="posts">
     {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a>
-          {{ post.excerpt }}
-      </li>
+  
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">{{ post.date | date_to_string }} {{post.title}}</h3>
+          </div>
+          <div class="panel-body">
+            {{ post.exceprt }}
+            <div class="pull-right">
+               <a href="{{ post.url }}" class="btn btn-primary">read more</a>
+            </div>
+          </div>
+        </div>
     {% endfor %}
-  </ul>
+  
 </div>
