@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Logger Aware Services"
-date:   2014-10-26 17:41:00
+date:   2014-11-11 21:29:00
 categories: 
 ---
 
@@ -9,13 +9,13 @@ Like any good developer, when building Symfony applications I aim to minimise th
 
 Inside these services I very often find that I would like to log something. The most correct way to do this is by injecting the Logger service but to do this for every service adds a chunk of extra code to each which reduces clarity. Futhermore, logging is generally not a mandatory part of the service's functionality, so the service should be able to function without a logger.
 
-To get around this, I have created a LoggerAwareService class from which I can extend any classes needing the logger. It uses setter injection rather than the constructor to inject the logger again because we want logger support to be optional and largely invisible to the service class, so we don't want to have to modify the constructor.
+To get around this, I have created a LoggerAware trait which I can add to any classes needing the logger. It uses setter injection rather than the constructor to inject the logger again because we want logger support to be optional and largely invisible to the service class, so we don't want to have to modify the constructor.
 
-Our basic LoggerAwareService class looks like this:
+Our basic LoggerAwareS trait looks like this:
 
 {% highlight php %}
 use Psr\Log\LoggerInterface as PsrLogger;
-class LoggerAwareService
+trait LoggerAware
 {
 	protected $logger;
 
@@ -31,11 +31,13 @@ class LoggerAwareService
 }
 {% endhighlight %}
 
-So, if we have extend a service class from it we can do something like this:
+So, if we use it in a service class from it we can do something like this:
 
 {% highlight php %}
-class ServiceClass extends LoggerAwareService
+class ServiceClass
 {
+    use LoggerAware; 
+
 	public function someOperation()
 	{
 		$this->getLogger()->info('About to perform some operation');
@@ -97,7 +99,7 @@ class NullLogger implements PsrLogger
 
 {% endhighlight %}
 
-Then in our LoggerAwareService class we add the following constructor:
+Then in our LoggerAware trait we add the following constructor:
 
 {% highlight php %}
 
@@ -108,4 +110,6 @@ public function __construct()
 
 {% endhighlight %}
 
-Now when we extend from this class we can call getLogger() and assume that a logger will definitely be returned. By default this will be a NullLogger which will just throw the messages away, but if we simply inject a functioning logger, all our calls will be handled. By doing this our class can focus on its own behaviour, it can log messages if a logger is available but it won't fail without a logger.
+Now when we use this trait we can call getLogger() and assume that a logger will definitely be returned. By default this will be a NullLogger which will just throw the messages away, but if we simply inject a functioning logger, all our calls will be handled. By doing this our class can focus on its own behaviour, it can log messages if a logger is available but it won't fail without a logger.
+
+The code for the LoggerAware trait can be found at GitHub: [https://github.com/dan-d-martin/logger-aware](https://github.com/dan-d-martin/logger-aware)
