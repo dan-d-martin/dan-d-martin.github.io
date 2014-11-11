@@ -5,29 +5,29 @@ date:   2014-11-11 21:29:00
 categories: 
 ---
 
-Like any good developer, when building Symfony applications I aim to minimise the amount of code residing in controllers by moving it into appropriate service classes with only the required dependencies injected in.
+Like any good developer, when building PHP applications I aim to minimise the amount of code residing in controllers by moving it into appropriate service classes with only the required dependencies injected in.
 
 Inside these services I very often find that I would like to log something. The most correct way to do this is by injecting the Logger service but to do this for every service adds a chunk of extra code to each which reduces clarity. Futhermore, logging is generally not a mandatory part of the service's functionality, so the service should be able to function without a logger.
 
 To get around this, I have created a LoggerAware trait which I can add to any classes needing the logger. It uses setter injection rather than the constructor to inject the logger again because we want logger support to be optional and largely invisible to the service class, so we don't want to have to modify the constructor.
 
-Our basic LoggerAwareS trait looks like this:
+Our basic LoggerAware trait looks like this:
 
 {% highlight php %}
 use Psr\Log\LoggerInterface as PsrLogger;
 trait LoggerAware
 {
-	protected $logger;
+    protected $logger;
 
-	public function setLogger(PsrLogger $l)
-	{
-		$this->logger = $l;
-	}
+    public function setLogger(PsrLogger $l)
+    {
+        $this->logger = $l;
+    }
 
-	public function getLogger()
-	{
-		return $this->logger;
-	}
+    public function getLogger()
+    {
+        return $this->logger;
+    }
 }
 {% endhighlight %}
 
@@ -38,14 +38,14 @@ class ServiceClass
 {
     use LoggerAware; 
 
-	public function someOperation()
-	{
-		$this->getLogger()->info('About to perform some operation');
+    public function someOperation()
+    {
+        $this->getLogger()->info('About to perform some operation');
 
-		// do our actual function
+        // do our actual function
 
-		$this->getLogger()->info('Finished performing some operation');
-	}
+        $this->getLogger()->info('Finished performing some operation');
+    }
 }
 
 {% endhighlight %}
@@ -67,19 +67,19 @@ class NullLogger implements PsrLogger
     {
         return null;
     }
-	public function critical($message, array $context = array())
+    public function critical($message, array $context = array())
     {
         return null;
     }
-	public function error($message, array $context = array())
+    public function error($message, array $context = array())
     {
         return null;
     }
-	public function warning($message, array $context = array()) 
+    public function warning($message, array $context = array()) 
     {
         return null;
     }
-	public function notice($message, array $context = array()) 
+    public function notice($message, array $context = array()) 
     {
         return null;
     }
@@ -99,13 +99,16 @@ class NullLogger implements PsrLogger
 
 {% endhighlight %}
 
-Then in our LoggerAware trait we add the following constructor:
+Then in our LoggerAware trait we modify getLogger():
 
 {% highlight php %}
 
-public function __construct() 
+public function getLogger()
 {
-	$this->logger = new NullLogger();	
+    if(is_null($this->logger)) {
+        $this->logger = new NullLogger();
+    }
+    return $this->logger;
 }
 
 {% endhighlight %}
